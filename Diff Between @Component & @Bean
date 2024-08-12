@@ -1,0 +1,35 @@
+## Difference Between `@Component` and `@Bean`
+
+- **`@Component`:**
+  - **Usage:** Marks a class as a Spring-managed component, making it eligible for component scanning and automatic detection.
+  - **Scope:** Applied to classes; Spring automatically detects these classes during classpath scanning.
+  - **Configuration:** No explicit configuration needed for basic usage; the component is detected and registered by Spring automatically.
+  - **Recommended Use:** Best for general-purpose beans that are simple and follow conventional Spring configuration. Ideal for most components that benefit from automatic component scanning.
+  - **Example:**
+    ```java
+    @Component
+    public class MyService {
+        // class implementation
+    }
+    ```
+
+- **`@Bean`:**
+  - **Usage:** Indicates that a method produces a bean that should be managed by the Spring container. It is used within `@Configuration` classes to explicitly define beans.
+  - **Scope:** Applied to methods within `@Configuration` classes; the method return value is registered as a bean in the Spring container.
+  - **Configuration:** Requires defining the bean within a `@Configuration` class and specifying bean creation logic.
+  - **Recommended Use:** Best for beans that require custom instantiation logic, need to be created with specific configurations, or when integrating with external libraries. Ideal for cases where you need more control over the bean creation process.
+  - **Example:**
+    ```java
+    @Configuration
+    public class AppConfig {
+        
+        @Bean
+        public MyService myService() {
+            return new MyService();
+        }
+    }
+    ```
+
+## Summary
+- **`@Component`** is used for automatic classpath scanning and registration as a bean, recommended for straightforward, convention-based bean creation.
+- **`@Bean`** is used for explicit bean definition within a `@Configuration` class, providing more control over bean creation and configuration, and recommended for more complex or customized bean instantiation.
