@@ -1,0 +1,8 @@
+## Key Spring Terminologies
+
+- **`@Component`:** Marks a class as a Spring-managed component, making it a candidate for auto-detection and dependency injection.
+- **Dependency:** An object that another object needs to function, typically injected by the Spring container.
+- **Component Scan:** A process where Spring automatically detects and registers beans (components) from specified packages.
+- **Dependency Injection (Spring Bean):** A design pattern where Spring automatically provides required dependencies to beans, promoting loose coupling.
+- **IoC Container:** The Spring container that manages the lifecycle and configuration of application beans.
+- **Autowiring:** A feature that allows Spring to automatically resolve and inject dependencies into beans.
