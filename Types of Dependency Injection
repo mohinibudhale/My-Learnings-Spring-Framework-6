@@ -1,0 +1,75 @@
+# Dependency Injection Types in Spring
+
+Dependency Injection (DI) is a core concept in Spring that allows for loose coupling between components by letting the framework manage the dependencies between objects. Below are the three primary types of dependency injection in Spring:
+
+## 1. Constructor Injection
+- **How It Works:** Dependencies are injected through the constructor of the class. When the Spring container creates an instance of a class, it provides the required dependencies as arguments to the constructor.
+- **Advantages:**
+  - Ensures that all required dependencies are provided at the time of object creation.
+  - Promotes immutability since dependencies are final and can't be changed after the object is constructed.
+  - Easier to perform unit testing with mocks or stubs.
+- **Usage:**
+  - Best used when all dependencies are mandatory and should not change after object creation.
+
+```java
+public class MyService {
+    private final MyRepository myRepository;
+
+    @Autowired
+    public MyService(MyRepository myRepository) {
+        this.myRepository = myRepository;
+    }
+
+    public void performAction() {
+        myRepository.saveData();
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## 2. Setter Injection
+
+- **How It Works:** Dependencies are injected through public setter methods. The Spring container first creates the object and then calls the setter methods to inject the dependencies.
+- **Advantages:**
+  - Provides more flexibility, allowing optional dependencies to be injected.
+  - Useful when some dependencies may change during the object's lifecycle.
+- **Disadvantages:**
+  - Can lead to partially initialized objects if a setter method is not called.
+  - Doesn't enforce dependency injection as strongly as constructor injection.
+- **Usage:**
+  - Best used when dependencies are optional or when you want to allow for dynamic changes in dependencies.
+
+```java
+public class MyService {
+    private MyRepository myRepository;
+
+    @Autowired
+    public void setMyRepository(MyRepository myRepository) {
+        this.myRepository = myRepository;
+    }
+
+    public void performAction() {
+        myRepository.saveData();
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## 3. Field Injection
+
+- **How It Works:** Dependencies are injected directly into fields using the `@Autowired` annotation. The Spring container sets the dependencies via reflection.
+- **Advantages:**
+  - Simplifies the code by reducing boilerplate (no need for setters or constructors).
+- **Disadvantages:**
+  - Makes testing more difficult because dependencies are not exposed via constructors or setters.
+  - Makes the class less clear about what dependencies it requires, which can reduce maintainability.
+  - Considered less ideal in complex applications due to testing and maintainability concerns.
+- **Usage:**
+  - Often used in simpler applications or when you want to minimize boilerplate code.
+
+```java
+public class MyService {
+    @Autowired
+    private MyRepository myRepository;
+
+    public void performAction() {
+        myRepository.saveData();
+    }
+}
+
